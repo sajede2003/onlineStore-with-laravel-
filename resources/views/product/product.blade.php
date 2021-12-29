@@ -6,7 +6,7 @@
             <div class="col-4" style="margin: 30px 0px;">
                 <div class="card" style="height: 400px;">
                     <img class="card-img-top" style="height: 200px;object-fit:cover;" src="
-{{--                    {{$product['pic']}}--}}
+{{--                    {{$product->pic}} --}}
                             " alt="Card image cap">
                     <div class="card-body">
                         <div class="card-title">
