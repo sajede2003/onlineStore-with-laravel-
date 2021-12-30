@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class Admin.ProductController extends Controller
+class ProductController extends Controller
 {
-    //
+    public function index()
+    {
+        $title = 'Product Page';
+        return view('admin.product.table' , compact('title'));
+    }
 }

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +22,13 @@ Route::get('/', [HomeController::class , 'home']);
 Route::get('/product' , [ProductController::class , 'index']);
 
 Route::get('/register' , [UserController::class , 'registerGet']);
+Route::post('/register' , [UserController::class , 'registerPost']);
+
+Route::get('/login' , [UserController::class , 'loginGet']);
+
+Route::prefix('dashboard')->group(function (){
+    Route::get('/' , [AdminController::class , 'index']);
+    Route::get('/users' , [\App\Http\Controllers\Admin\UsersController::class , 'index']);
+    Route::get('/category' , [CategoryController::class , 'index']);
+    Route::get('/product' , [\App\Http\Controllers\Admin\ProductController::class , 'index']);
+});

@@ -13,7 +13,7 @@ class Validation extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class Validation extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required'],
+            'phone_number' => ['required'],
+            'email' => ['required'],
+            'password' => ['required'],
+            'confirmPassword' => ['required'],
         ];
     }
 }

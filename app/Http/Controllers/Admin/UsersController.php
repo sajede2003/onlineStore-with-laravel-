@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class Admin.UsersController extends Controller
+class UsersController extends Controller
 {
-    //
+    public function index()
+    {
+        $title = 'Users Page';
+        return  view('admin.users.table' , compact('title'));
+    }
 }
