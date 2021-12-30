@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Validation;
 use App\Models\User;
-use Dotenv\Validator;
 use Illuminate\Http\Request;
-use Nette\Utils\Validators;
 
 class UserController extends Controller
 {
@@ -18,19 +16,26 @@ class UserController extends Controller
 
     public function registerPost(Validation $request)
     {
-
         User::create([
-           'name'=>$validate_data['name'],
-           'phone_number'=>$validate_data['phone_number'],
-            'email'=>$validate_data['email'],
-            'password'=>$validate_data['password']
+           'name'=>$request['name'],
+           'phone_number'=>$request['phone_number'],
+            'email'=>$request['email'],
+            'password'=>$request['password']
         ]);
-
+        return redirect('/login');
     }
 
     public function loginGet(){
         $title = 'login page';
-
         return view('auth.login' , compact('title'));
+    }
+
+    public function loginPost(Request $request)
+    {
+        $user = User::where('email', $request['email'])->first();
+        session()->put('user_name' , $user->name);
+        session()->put('user' , $user->id);
+        session()->put('is_login' , true);
+        return redirect('/');
     }
 }

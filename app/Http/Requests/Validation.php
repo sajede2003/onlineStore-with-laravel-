@@ -24,11 +24,11 @@ class Validation extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'phone_number' => ['required'],
-            'email' => ['required'],
-            'password' => ['required'],
-            'confirmPassword' => ['required'],
+            'name' => 'required',
+            'phone_number' => 'required|unique:users',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'confirmPassword' => 'required',
         ];
     }
 }

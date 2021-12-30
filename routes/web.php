@@ -25,6 +25,7 @@ Route::get('/register' , [UserController::class , 'registerGet']);
 Route::post('/register' , [UserController::class , 'registerPost']);
 
 Route::get('/login' , [UserController::class , 'loginGet']);
+Route::post('/login' , [UserController::class , 'loginPost']);
 
 Route::prefix('dashboard')->group(function (){
     Route::get('/' , [AdminController::class , 'index']);
@@ -32,3 +33,5 @@ Route::prefix('dashboard')->group(function (){
     Route::get('/category' , [CategoryController::class , 'index']);
     Route::get('/product' , [\App\Http\Controllers\Admin\ProductController::class , 'index']);
 });
+
+Route::get('/logout' , [HomeController::class , 'logOut']);

@@ -26,13 +26,13 @@
                         </li>
                     </ul>
                     <div class="text-end">
-                        {{--@if (empty($_SESSION['user'])): --}}
+                        @if (!session()->has('user'))
                             <a href="/login" class="btn btn-outline-light me-2">Login</a>
                             <a href="/register" class="btn btn-warning">Sign-up</a>
-                        {{--@endif (!empty($_SESSION['user']))--}}
+                        @else
                             <a href="/cart" class="btn btn-success me-2">cart</a>
                             <a href="/logout" class="btn btn-danger">logOut</a>
-                        {{--@endif--}}
+                        @endif
                     </div>
                 </div>
             </div>
