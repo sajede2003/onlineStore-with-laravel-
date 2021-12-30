@@ -25,9 +25,9 @@ class Validation extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone_number' => 'required|unique:users',
-            'email' => 'required|unique:users',
-            'password' => 'required',
+            'phone_number' => 'required|unique:users|',
+            'email' => 'required|unique:users|email',
+            'password' => 'required|min:8',
             'confirmPassword' => 'required',
         ];
     }
