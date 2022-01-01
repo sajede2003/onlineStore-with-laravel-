@@ -26,12 +26,15 @@
                         </li>
                     </ul>
                     <div class="text-end">
-                        @if (!session()->has('user'))
+                        @if (auth()->user())
+                            <a href="/cart" class="btn btn-success me-2">cart</a>
+                            <form action="/logout" method="post" style="display: inline;">
+                                @csrf
+                                <button class="btn btn-danger">logOut</button>
+                            </form>
+                        @else
                             <a href="/login" class="btn btn-outline-light me-2">Login</a>
                             <a href="/register" class="btn btn-warning">Sign-up</a>
-                        @else
-                            <a href="/cart" class="btn btn-success me-2">cart</a>
-                            <a href="/logout" class="btn btn-danger">logOut</a>
                         @endif
                     </div>
                 </div>

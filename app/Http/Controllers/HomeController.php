@@ -12,9 +12,9 @@ class HomeController extends Controller
         return view('index' , compact('title'));
     }
 
-    public function logOut()
+    public function logout()
     {
-        session()->flush();
+       auth()->logout();
         return redirect('/');
     }
 
