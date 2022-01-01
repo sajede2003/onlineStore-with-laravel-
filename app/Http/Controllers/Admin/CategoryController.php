@@ -56,9 +56,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        $title = 'Edit category page';
+        return view('admin.category.edit' , compact('title' , 'category'));
     }
 
     /**
@@ -68,9 +69,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validate_data = $this->validate($request , [
+            'title'=>'required'
+        ]);
+
+        $category->update($validate_data);
+        return redirect('dashboard/category');
     }
 
     /**
