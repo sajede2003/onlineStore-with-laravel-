@@ -15,7 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $title = 'User edit page';
+        $title = 'User page';
         $users = User::all();
         return view('admin.users.table' , compact('title' , 'users'));
     }
@@ -43,8 +43,8 @@ class UsersController extends Controller
     {
         $validate_data = $this->validate($request , [
             'name'=>'required',
-            'phone_number'=>'required',
-            'email'=>'required'
+            'phone_number'=>['required','numeric' ,'digits:11', 'regex:/^09|011[0-9]*$/'],
+            'email'=>['required' , 'email']
         ]);
 
         $user->update($validate_data);
@@ -57,8 +57,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return back();
     }
 }

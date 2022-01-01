@@ -27,9 +27,11 @@
                     {{$user->email}}
                 </td>
                 <td class="f-flex col-2">
-                    <a href="/dashboard/users/delete?id=
-                        {{$user->id}}
-                            " class="btn  btn-danger "> delete</a>
+                    <form action="{{route('users.destroy',$user->id)}}" method="post" style="display: inline;">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger">delete</button>
+                    </form>
                     <a href="{{route('users.edit',$user->id)}}" class="btn btn-info"> edit</a>
                 </td>
             </tr>
