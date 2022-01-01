@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,7 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         $title = 'Category Page';
-        return view('admin.category.table' , compact('title'));
+        $allData = Category::all();
+        return view('admin.category.table' , compact('title' , 'allData'));
     }
 
     /**
@@ -25,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        $title = 'Add category page';
+        return view('admin.category.add' , compact('title'));
     }
 
     /**
@@ -34,21 +37,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , Category $category)
     {
-        //
+        $validate_data = $this->validate($request ,[
+            'title'=>'required'
+        ]);
+        $category->create([
+            'title'=>$validate_data['title'],
+        ]);
+
+        return redirect('/dashboard/category');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -79,8 +79,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return back();
     }
 }
