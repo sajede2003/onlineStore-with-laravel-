@@ -6,11 +6,11 @@
     <div class=" form-floating mb-3">
         <input type="text" name="name" id="floatingInput" class="form-control" placeholder="name@example.com">
         <label for="floatingInput">Full Name *</label>
-            @error('name')
-                <span class="invalidFeedback text-danger">
-                    {{$message}}
-                </span>
-            @enderror
+        @error('name')
+            <span class="invalidFeedback text-danger">
+                {{$message}}
+            </span>
+        @enderror
     </div>
     <div class="form-floating mb-3">
         <input type="text" name="phone_number" id="floatingPassword" class="form-control" placeholder="name@example.com">

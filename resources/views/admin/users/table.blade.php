@@ -12,28 +12,28 @@
             </thead>
             <tbody>
             @php $counter = 1 @endphp
+            @foreach ($users as $user)
             <tr>
                 <td>
                     {{$counter++}}
                 </td>
                 <td>
-                    {{auth()->user()->name}}
+                    {{$user->name}}
                 </td>
                 <td>
-                    {{auth()->user()->phone_number}}
+                    {{$user->phone_number}}
                 </td>
                 <td>
-                    {{auth()->user()->email}}
+                    {{$user->email}}
                 </td>
                 <td class="f-flex col-2">
                     <a href="/dashboard/users/delete?id=
-                        {{auth()->user()->id}}
+                        {{$user->id}}
                             " class="btn  btn-danger "> delete</a>
-                    <a href="/dashboard/users/edit?id=
-                        {{auth()->user()->id}}
-                            " class="btn btn-info"> edit</a>
+                    <a href="{{route('users.edit',$user->id)}}" class="btn btn-info"> edit</a>
                 </td>
             </tr>
+            @endforeach
             </tbody>
         </table>
 

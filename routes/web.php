@@ -23,17 +23,19 @@ Route::get('/', [HomeController::class , 'home']);
 
 Route::get('/product' , [ProductController::class , 'index']);
 
-Route::get('/register' , [RegisterController::class , 'get']);
-Route::post('/register' , [RegisterController::class , 'post']);
-
-Route::get('/login' , [LoginController::class , 'get']);
-Route::post('/login' , [LoginController::class , 'post']);
-
-Route::prefix('dashboard')->group(function (){
-    Route::get('/' , [AdminController::class , 'index']);
-    Route::get('/users' , [UsersController::class , 'index']);
-    Route::get('/category' , [CategoryController::class , 'index']);
-    Route::get('/product' , [\App\Http\Controllers\Admin\ProductController::class , 'index']);
+Route::middleware('guest')->group(function (){
+    Route::get('/register' , [RegisterController::class , 'get']);
+    Route::post('/register' , [RegisterController::class , 'post']);
+    Route::get('/login' , [LoginController::class , 'get']);
+    Route::post('/login' , [LoginController::class , 'post']);
 });
+
+Route::middleware(['auth','auth.admin'])->prefix('dashboard')->group(function (){
+    Route::get('/' , [AdminController::class , 'index']);
+    Route::resource('users' , UsersController::class)->except(['show', 'create' , 'store']);
+    Route::resource('category' , CategoryController::class);
+    Route::resource('product' , \App\Http\Controllers\Admin\ProductController::class);
+});
+
 
 Route::post('/logout' , [HomeController::class , 'logout']);

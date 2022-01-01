@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\LoginValidation;
-use App\Http\Requests\RegisterValidation;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +16,7 @@ class LoginController
         return view('auth.login', compact('title'));
     }
 
-    public function post(LoginValidation $request)
+    public function post(LoginRequest $request)
     {
         $user = User::where('email', $request['email'])->first();
 

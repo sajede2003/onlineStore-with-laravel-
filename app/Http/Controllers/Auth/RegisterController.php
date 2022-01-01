@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\RegisterValidation;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 
 class RegisterController
@@ -13,7 +13,7 @@ class RegisterController
         return view('auth.register' , compact('title'));
     }
 
-    public function post(RegisterValidation $request)
+    public function post(RegisterRequest $request)
     {
         User::create([
             'name'=>$request->name,

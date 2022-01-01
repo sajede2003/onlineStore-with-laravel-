@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Category Page';
+        return view('admin.category.table' , compact('title'));
     }
 
     /**
