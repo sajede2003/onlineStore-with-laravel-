@@ -10,23 +10,24 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController
 {
-    public function loginGet(){
+    public function get()
+    {
         $title = 'login page';
-        return view('auth.login' , compact('title'));
+        return view('auth.login', compact('title'));
     }
 
-    public function loginPost(LoginValidation $request)
+    public function post(LoginValidation $request)
     {
         $user = User::where('email', $request['email'])->first();
-        if(!$user){
-            return redirect('/login')->withErrors([
-                'password'=>'email or password is incorrect. please try again.'
-            ]);
-        }
-        $hashedPassword = $user->password;
-        if (Hash::check($request['password'] , $hashedPassword)) {
+
+        if ($user && Hash::check($request['password'], $user->password)) {
             auth()->login($user);
             return redirect('/');
         }
+
+        return redirect('/login')->withErrors([
+            'password' => 'email or password is incorrect. please try again.'
+        ]);
+
     }
 }

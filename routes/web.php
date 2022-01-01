@@ -23,11 +23,11 @@ Route::get('/', [HomeController::class , 'home']);
 
 Route::get('/product' , [ProductController::class , 'index']);
 
-Route::get('/register' , [RegisterController::class , 'registerGet']);
-Route::post('/register' , [RegisterController::class , 'registerPost']);
+Route::get('/register' , [RegisterController::class , 'get']);
+Route::post('/register' , [RegisterController::class , 'post']);
 
-Route::get('/login' , [LoginController::class , 'loginGet']);
-Route::post('/login' , [LoginController::class , 'loginPost']);
+Route::get('/login' , [LoginController::class , 'get']);
+Route::post('/login' , [LoginController::class , 'post']);
 
 Route::prefix('dashboard')->group(function (){
     Route::get('/' , [AdminController::class , 'index']);

@@ -7,13 +7,13 @@ use App\Models\User;
 
 class RegisterController
 {
-    public function registerGet()
+    public function get()
     {
         $title = 'register page';
         return view('auth.register' , compact('title'));
     }
 
-    public function registerPost(RegisterValidation $request)
+    public function post(RegisterValidation $request)
     {
         User::create([
             'name'=>$request->name,
