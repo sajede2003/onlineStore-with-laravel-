@@ -18,17 +18,15 @@ class LoginController
     public function loginPost(LoginValidation $request)
     {
         $user = User::where('email', $request['email'])->first();
-        $hashedPassword = $user->password;
-
-        if (Hash::check($request['password'] , $hashedPassword)) {
-            auth()->login($user);
-            return redirect('/');
-        }else{
-
+        if(!$user){
             return redirect('/login')->withErrors([
                 'password'=>'email or password is incorrect. please try again.'
             ]);
         }
-
+        $hashedPassword = $user->password;
+        if (Hash::check($request['password'] , $hashedPassword)) {
+            auth()->login($user);
+            return redirect('/');
+        }
     }
 }

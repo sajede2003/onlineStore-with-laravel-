@@ -25,7 +25,7 @@ class RegisterValidation extends FormRequest
     {
         return [
             'name' => 'required',
-            'phone_number' => 'required|unique:users|',
+            'phone_number' =>  ['required','unique:users','numeric' ,'digits:11', 'regex:/^09|011[0-9]*$/'],
             'email' => 'required|unique:users|email',
             'password' => 'required|min:8',
             'confirmPassword' => 'required',

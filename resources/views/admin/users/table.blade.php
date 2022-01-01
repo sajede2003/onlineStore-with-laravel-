@@ -11,31 +11,29 @@
                 </tr>
             </thead>
             <tbody>
-{{--            @php $counter = 1 @endphp--}}
-{{--            @foreach ($allData as $key => $data)--}}
+            @php $counter = 1 @endphp
             <tr>
                 <td>
-{{--                    {{$counter++}}--}}
+                    {{$counter++}}
                 </td>
                 <td>
-{{--                    {{$data->full_name}}--}}
+                    {{auth()->user()->name}}
                 </td>
                 <td>
-{{--                    {{$data->phone_number}}--}}
+                    {{auth()->user()->phone_number}}
                 </td>
                 <td>
-{{--                    {{$data->email}}--}}
+                    {{auth()->user()->email}}
                 </td>
                 <td class="f-flex col-2">
                     <a href="/dashboard/users/delete?id=
-{{--                        {{$data->id}}--}}
+                        {{auth()->user()->id}}
                             " class="btn  btn-danger "> delete</a>
                     <a href="/dashboard/users/edit?id=
-{{--                        {{$data->id}}--}}
+                        {{auth()->user()->id}}
                             " class="btn btn-info"> edit</a>
                 </td>
             </tr>
-{{--            @endforeach--}}
             </tbody>
         </table>
 

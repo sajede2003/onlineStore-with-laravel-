@@ -21,9 +21,11 @@
                         <li>
                             <a href="/product" class="nav-link px-2 text-white"> product</a>
                         </li>
-                        <li>
-                            <a href="/dashboard" class="nav-link px-2 text-white">dashboard</a>
-                        </li>
+                        @if (auth()->user()&&auth()->user()->is_admin==1)
+                            <li>
+                                <a href="/dashboard" class="nav-link px-2 text-white">dashboard</a>
+                            </li>
+                        @endif
                     </ul>
                     <div class="text-end">
                         @if (auth()->user())
