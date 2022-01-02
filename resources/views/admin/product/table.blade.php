@@ -9,30 +9,30 @@
                 </tr>
                 </thead>
                 <tbody>
-{{--                @php $counter = 1; @endphp--}}
-{{--                @foreach ($allData as $key => $data):--}}
+                @php $counter = 1 @endphp
+                @foreach ($productData as $data)
                 <tr>
                     <th scope="row">
-{{--                        {{$counter++}}--}}
+                        {{$counter++}}
                     </th>
                     <td>
-{{--                         $data->title--}}
+                        {{$data->title}}
                     </td>
                     <td>
                         <div style="display:flex; justify-content:end;">
-                            <a href="/dashboard/product/delete?id=
-{{--                                {{$data->id}}--}}
-                                    " class="btn btn-danger text-white">delete</a>
-                            <a href="/dashboard/product/edit?id=
-{{--                                {{$data->id}} --}}
-                                    " class="btn btn-info text-white mx-2">edit</a>
+                            <form action="{{route('product.destroy',$data->id)}}" method="post" style="display: inline;">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger">delete</button>
+                            </form>
+                            <a href="{{route('product.edit',$data->id)}}" class="btn btn-info"> edit</a>
                         </div>
                     </td>
                 </tr>
-{{--                @endforeach--}}
+                @endforeach
                 </tbody>
             </table>
-            <a class="btn btn-success" href="/dashboard/product/add"> add </a>
+            <a href="{{route('product.create')}}" class="btn btn-success">add</a>
 
 {{--<input type="hidden" value="<?= isset($message)?$message:''?>" id="message">--}}
 

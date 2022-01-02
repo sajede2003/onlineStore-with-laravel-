@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +17,8 @@ class ProductController extends Controller
     public function index()
     {
         $title = 'Product Page';
-        return view('admin.product.table' , compact('title'));
+        $productData = Products::all();
+        return view('admin.product.table' , compact('title' , 'productData'));
     }
 
     /**
@@ -25,7 +28,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Add product page';
+        $category = Category::all();
+        return view('admin.product.add' , compact('title' , 'category'));
+
     }
 
     /**
@@ -34,9 +40,26 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , Products $products)
     {
-        //
+        $validate_data = $this->validate($request ,[
+            'title'=>'required',
+            'description' => 'required',
+            'pic' => 'required',
+            'price' => 'required',
+            'count' => 'required',
+            'category_id' => 'required',
+        ]);
+        $products->create([
+            'title'=>$validate_data['title'],
+            'description'=>$validate_data['description'],
+            'pic'=>$validate_data['pic'],
+            'price'=>$validate_data['price'],
+            'count'=>$validate_data['count'],
+            'category_id'=>$validate_data['category_id'],
+        ]);
+
+        return redirect('/dashboard/product');
     }
 
     /**
@@ -79,8 +102,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Products $products)
     {
-        //
+        
     }
 }

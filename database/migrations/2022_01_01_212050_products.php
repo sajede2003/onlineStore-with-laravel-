@@ -13,7 +13,19 @@ class Products extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Products', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('category_id');
+            $table->string('title');
+            $table->string('description' , 500);
+            $table->bigInteger('price' , 20)->autoIncrement(false);
+            $table->integer('count' , 11)->autoIncrement(false);
+            $table->foreign('category_id')
+                ->references('id')->on('categories')
+                ->onDelete('cascade');
+            $table->string('pic',500);
+            $table->timestamps();
+        });
     }
 
     /**
