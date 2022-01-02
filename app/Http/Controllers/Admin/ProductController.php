@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $title = 'Product Page';
-        $productData = Products::all();
+        $productData = Product::all();
         return view('admin.product.table' , compact('title' , 'productData'));
     }
 
@@ -40,7 +40,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , Products $products)
+    public function store(Request $request , Product $product)
     {
         $validate_data = $this->validate($request ,[
             'title'=>'required',
@@ -50,7 +50,7 @@ class ProductController extends Controller
             'count' => 'required',
             'category_id' => 'required',
         ]);
-        $products->create([
+        $product->create([
             'title'=>$validate_data['title'],
             'description'=>$validate_data['description'],
             'pic'=>$validate_data['pic'],
@@ -102,9 +102,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy(Product $product)
     {
-        $products->delete();
+        $product->delete();
         return back();
     }
 }

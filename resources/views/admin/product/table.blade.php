@@ -11,6 +11,7 @@
                 <tbody>
                 @php $counter = 1 @endphp
                 @foreach ($productData as $data)
+
                 <tr>
                     <th scope="row">
                         {{$counter++}}
@@ -23,7 +24,7 @@
                             <form action="{{route('product.destroy',$data->id)}}" method="post" style="display: inline;">
                                 @csrf
                                 @method('delete')
-                                <button class="btn btn-danger">delete</button>
+                                <button class="btn btn-danger" type="submit">delete</button>
                             </form>
                             <a href="{{route('product.edit',$data->id)}}" class="btn btn-info"> edit</a>
                         </div>

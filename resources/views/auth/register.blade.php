@@ -40,9 +40,9 @@
         @enderror
     </div>
     <div class="form-floating mb-3">
-        <input type="password" name="confirmPassword" id="floatingPassword" class="form-control" placeholder="name@example.com">
+        <input type="password" name="password_confirmation" id="floatingPassword" class="form-control" placeholder="name@example.com">
         <label for="floatingInput">Confirm Password *</label>
-        @error('confirmPassword')
+        @error('password_confirmation')
         <span class="invalidFeedback text-danger">
                     {{$message}}
                 </span>
