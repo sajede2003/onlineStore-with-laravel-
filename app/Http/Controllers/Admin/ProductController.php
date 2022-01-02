@@ -42,21 +42,25 @@ class ProductController extends Controller
      */
     public function store(Request $request , Product $product)
     {
-        $validate_data = $this->validate($request ,[
+        $validatedata = $this->validate($request ,[
             'title'=>'required',
             'description' => 'required',
-            'pic' => 'required',
+            'pic' => 'required|mimes:jpg,png,jpeg|max:5048',
             'price' => 'required',
             'count' => 'required',
             'category_id' => 'required',
         ]);
+        $newImageName = time() . '_' . $request->title . '.' .
+            $request->pic->extension();
+        $request->pic->move(public_path('images') , $newImageName);
+
         $product->create([
-            'title'=>$validate_data['title'],
-            'description'=>$validate_data['description'],
-            'pic'=>$validate_data['pic'],
-            'price'=>$validate_data['price'],
-            'count'=>$validate_data['count'],
-            'category_id'=>$validate_data['category_id'],
+            'title'=>$validatedata['title'],
+            'description'=>$validatedata['description'],
+            'price'=>$validatedata['price'],
+            'count'=>$validatedata['count'],
+            'pic'=> $newImageName,
+            'category_id'=>$validatedata['category_id'],
         ]);
 
         return redirect('/dashboard/product');
