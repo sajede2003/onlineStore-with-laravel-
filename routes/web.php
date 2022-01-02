@@ -34,7 +34,7 @@ Route::middleware(['auth','auth.admin'])->prefix('dashboard')->group(function ()
     Route::get('/' , [AdminController::class , 'index']);
     Route::resource('users' , UsersController::class)->except(['show', 'create' , 'store']);
     Route::resource('category' , CategoryController::class)->except('show');
-    Route::resource('product' , \App\Http\Controllers\Admin\ProductController::class);
+    Route::resource('product' , \App\Http\Controllers\Admin\ProductController::class)->except('show');
 });
 
 
