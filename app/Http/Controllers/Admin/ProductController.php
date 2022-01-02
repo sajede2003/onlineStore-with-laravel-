@@ -104,6 +104,7 @@ class ProductController extends Controller
      */
     public function destroy(Products $products)
     {
-        
+        $products->delete();
+        return back();
     }
 }
