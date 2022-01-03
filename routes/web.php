@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -36,6 +37,10 @@ Route::middleware(['auth','auth.admin'])->prefix('dashboard')->group(function ()
     Route::resource('category' , CategoryController::class)->except('show');
     Route::resource('product' , \App\Http\Controllers\Admin\ProductController::class)->except('show');
 });
+
+Route::get('/cart' , [CartController::class , 'cart'])->name('cart');
+Route::get('/product/add-to-cart/{product}' , [CartController::class , 'addToCart'])->name('addToCart');
+Route::get('/product/remove-from-cart/{product}' , [CartController::class , 'removeFromCart'])->name('removeFromCart');
 
 
 Route::post('/logout' , [HomeController::class , 'logout']);
