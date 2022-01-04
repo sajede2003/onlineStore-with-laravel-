@@ -4,30 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function PHPUnit\Framework\isNull;
 
 class Bookmark extends Model
 {
-    protected $table = 'bookmarks';
-    public function getUserBookmark($product_id, $user_id)
+    protected $fillable = [
+        'user_id',
+        'product_id',
+    ];
+
+    public function scopeGetUserBookmark($query , $product_id, $user_id)
     {
-        return $this->table->where('product_id', $product_id)
-            ->where('user_id', $user_id)
-            ->first();
+        return $query->where('product_id' , $product_id)->where('user_id' , $user_id);
     }
 
-    public function deleteBookmark($product_id , $user_id)
+    public static function deleteBookmark($product_id , $user_id)
     {
-        $this->table->where('product_id' , $product_id)->where('user_id' , $user_id)->delete();
+        Bookmark::where('product_id' , $product_id)->where('user_id' , $user_id)->delete();
     }
 
-    public function bookmark($data , $user_id , $product_id)
+    public function bookmark($user_id , $product_id)
     {
-        $isChecked = $this->getUserBookmark($product_id , $user_id);
+        $isChecked = Bookmark::getUserBookmark($product_id , $user_id)->first();
 
         if(!$isChecked){
-            return $this->table->create($data);
+            return Bookmark::create([
+                'user_id'=>$user_id ,
+                'product_id'=>$product_id
+            ]);
         }else{
-            return $this->table->deleteBookmark($product_id , $user_id);
+            return Bookmark::deleteBookmark($product_id , $user_id);
         }
 
 

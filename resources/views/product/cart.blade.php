@@ -28,7 +28,7 @@
                     </p>
                 </td>
                 <td>
-                    <a href="/more?id={{$key}}"> more</a>
+                    <a href="{{route('singlePage' , $value['product_id'])}}"> more</a>
                 </td>
                 <td>
                     <p>

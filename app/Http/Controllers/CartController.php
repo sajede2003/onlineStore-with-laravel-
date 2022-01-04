@@ -43,6 +43,7 @@ class CartController extends Controller
             $cart[$product->id]['sum'] = $cart[$product->id]['count'] * $cart[$product->id]['price'];
         } else {
             $cart[$product->id] = [
+                'product_id' => $product->id,
                 'title' => $product->title,
                 'price' => $product->price,
                 'count' => 1,

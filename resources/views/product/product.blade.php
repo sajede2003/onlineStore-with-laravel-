@@ -20,7 +20,7 @@
                             </div>
                             <div style="margin: -25px 0px;display: flex;justify-content:space-between;">
                                 <a href="{{route('addToCart' , $product->id)}}" class="btn btn-primary">add to cart </a>
-                                <a href="/more?id={{$product->id}}" class="btn btn-danger"> more </a>
+                                <a href="{{route('singlePage' , $product->id)}}" class="btn btn-danger"> more </a>
                             </div>
                         </div>
                     </div>
