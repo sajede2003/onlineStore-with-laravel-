@@ -15,11 +15,9 @@
             </div>
             <div style="display: flex; justify-content:space-between;">
                 <span>
-                    <a href="
-{{--                        {{route('like', $productData->id)}}--}}
-                            " class="btn btn-danger">like</a>
+                    <a href="{{route('addLike', $productData->id)}}" class="btn btn-danger">like</a>
                     <small>
-    {{--                    {{$likeCount[0]['count']}}--}}
+                        {{$likeCount[0]['count']}}
                     </small>
                 </span>
                 <span>

@@ -45,6 +45,7 @@ Route::get('/product/add-to-cart/{product}', [CartController::class, 'addToCart'
 Route::get('/product/remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
 Route::get('/single-page/{product}', [SinglePageController::class, 'index'])->name('singlePage');
+Route::get('/single-page/add-like/{product}' , [SinglePageController::class , 'addLike'])->name('addLike');
 Route::post('/add-bookmark/{product}' , [SinglePageController::class , 'addBookMark'])->name('addBookmark');
 
 
