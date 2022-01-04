@@ -24,7 +24,6 @@ use  App\Http\Controllers\Admin\UsersController;
 
 Route::get('/', [HomeController::class, 'home']);
 
-Route::get('/product', [ProductController::class, 'index']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'get']);
@@ -41,12 +40,20 @@ Route::middleware(['auth', 'auth.admin'])->prefix('dashboard')->group(function (
 });
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
-Route::get('/product/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('addToCart');
-Route::get('/product/remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
-Route::get('/single-page/{product}', [SinglePageController::class, 'index'])->name('singlePage');
-Route::get('/single-page/add-like/{product}' , [SinglePageController::class , 'addLike'])->name('addLike');
-Route::post('/add-bookmark/{product}' , [SinglePageController::class , 'addBookMark'])->name('addBookmark');
+
+Route::middleware(['auth'])->prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+    Route::prefix('single-page')->group(function (){
+        Route::get('/{product}', [SinglePageController::class, 'index'])->name('singlePage');
+        Route::get('/add-like/{product}' , [SinglePageController::class , 'addLike'])->name('addLike');
+        Route::post('/add-score/{product}' , [SinglePageController::class , 'addScore'])->name('score');
+        Route::post('/add-bookmark/{product}' , [SinglePageController::class , 'addBookMark'])->name('addBookmark');
+    });
+});
+
 
 
 Route::post('/logout', [HomeController::class, 'logout']);

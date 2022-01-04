@@ -26,12 +26,11 @@
                     <small id="score">
                         <output id="ShowScore">0</output>/5
                     </small>
-                    <form action="/score" method="POST">
+                    <form action="{{route('score' , $productData->id)}}" method="POST">
+                        @csrf
                         <input type="range" id="score" oninput="SaveValue.value = this.value;ShowScore.value=this.value" min="0" max="5">
                         <input type="hidden" name="score" id="SaveValue" value="">
-                        <input type="hidden" name="product_id" value="
-{{--                        {{$product->id}}--}}
-                                ">
+                        <input type="hidden" name="product_id" value="{{$productData->id}}">
                         <button type="submit">send</button>
                     </form>
                 </span>

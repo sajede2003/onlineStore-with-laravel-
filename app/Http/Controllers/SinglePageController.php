@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bookmark;
 use App\Models\Like;
 use App\Models\Product;
+use App\Models\Score;
 use Illuminate\Http\Request;
 
 class SinglePageController extends Controller
@@ -14,7 +15,6 @@ class SinglePageController extends Controller
         $title = 'Single page';
         $productData = $product->where('id' , $product->id)->first();
         Bookmark::getUserBookmark($product->id , auth()->user()->id);
-
         $likeCount = (new \App\Models\Like)->likeCount($product->id);
 
         return view('product.single.index' , compact('title' , 'productData' , 'likeCount'));
@@ -40,5 +40,16 @@ class SinglePageController extends Controller
         $like->like($user_id , $product_id);
 
         return back();
+    }
+
+    public function addScore(Request $request , Product $product , Score $score)
+    {
+            $userId =auth()->user()->id;
+            $productId = $product->id;
+
+           $score->score($request ,$userId, $productId);
+
+           return back();
+
     }
 }
