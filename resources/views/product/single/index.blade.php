@@ -21,7 +21,6 @@
                     </small>
                 </span>
                 <span>
-{{--            {{$score}}--}}
                     <label for="score">score</label>
                     <small id="score">
                         <output id="ShowScore">0</output>/5
@@ -50,24 +49,29 @@
         </div>
         <hr>
         <div class="comments border py-5 px-2">
-            <form action="/comment" method="POST">
-                <input type="hidden" name="product_id" value="
-{{--                {{$product->id}}--}}
-                        ">
+            <form action="{{route('comment' , $productData->id)}}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{$productData->id}}">
                 <div>
                     <label for="comment"> your comment : </label>
                 </div>
                 <textarea name="content" id="comment" class="w-100 p-3 " style="height: 100px;"></textarea>
                 <input type="hidden" name="parent_comment" value="0" id="replay">
                 <span>
-                <button class="btn btn-info text-white">send</button>
-            </span>
+                    <button class="btn btn-info text-white">send</button>
+                </span>
             </form>
             <h3>comments</h3>
-            {{--                @include('Comments.php')--}}
+            @include('product.single.comment', ['allComments'=>$comments , 'comments' => $comments->where('comment_parent', 0)
+                ,'color' => '#F9F3F5'
+                , 'margin' => 'ml-0'])
+            @if(!$comments)
+                <h3>
+                    comments are empty
+                </h3>
+            @endif
         </div>
     </div>
-
 
     <script>
         let BookmarkInput = document.querySelector('#bookmark');
@@ -77,7 +81,6 @@
 
         BookmarkInput.addEventListener('click', () => BookmarkBtn.click())
 
-
         replaysRadio.forEach(item => {
             console.log('as');
             item.addEventListener('click', () => {
@@ -85,14 +88,5 @@
             })
         })
         let link = document.querySelector('#contact');
-
-        var SweetAlertMessage = document.querySelector('#message').value;
-
-        if (SweetAlertMessage.trim() !== '') {
-            Swal.fire({
-                icon: 'success',
-                text: SweetAlertMessage,
-            })
-        }
     </script>
 @endsection

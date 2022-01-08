@@ -28,7 +28,7 @@ Route::get('/', [HomeController::class, 'home']);
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'get']);
     Route::post('/register', [RegisterController::class, 'post']);
-    Route::get('/login', [LoginController::class, 'get']);
+    Route::get('/login', [LoginController::class, 'get'])->name('login');
     Route::post('/login', [LoginController::class, 'post']);
 });
 
@@ -42,15 +42,16 @@ Route::middleware(['auth', 'auth.admin'])->prefix('dashboard')->group(function (
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
 
-Route::middleware(['auth'])->prefix('product')->group(function () {
+Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('/remove-from-cart/{product}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
-    Route::prefix('single-page')->group(function (){
-        Route::get('/{product}', [SinglePageController::class, 'index'])->name('singlePage');
+    Route::get('single-page/{product}', [SinglePageController::class, 'index'])->name('singlePage');
+    Route::prefix('single-page')->middleware('auth')->group(function (){
         Route::get('/add-like/{product}' , [SinglePageController::class , 'addLike'])->name('addLike');
         Route::post('/add-score/{product}' , [SinglePageController::class , 'addScore'])->name('score');
         Route::post('/add-bookmark/{product}' , [SinglePageController::class , 'addBookMark'])->name('addBookmark');
+        Route::post('/comment/{product}' , [SinglePageController::class , 'addComment'])->name('comment');
     });
 });
 
