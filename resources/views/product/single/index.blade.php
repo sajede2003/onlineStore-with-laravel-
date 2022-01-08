@@ -3,21 +3,21 @@
     <div class="content">
         <div class="post">
             <div class="w-100" style="height: 640px;">
-                <img class="w-100 h-100" src="{{asset('images/' . $productData->pic)}}" alt="#">
+                <img class="w-100 h-100" src="{{asset('images/' . $product->pic)}}" alt="#">
             </div>
             <h1>title :
-                {{$productData->title}}
+                {{$product->title}}
             </h1>
             <div>
                 <p>
-                    {{$productData->description}}
+                    {{$product->description}}
                 </p>
             </div>
             <div style="display: flex; justify-content:space-between;">
                 <span>
-                    <a href="{{route('addLike', $productData->id)}}" class="btn btn-danger">like</a>
+                    <a href="{{route('addLike', $product->id)}}" class="btn btn-danger">like</a>
                     <small>
-                        {{$likeCount[0]['count']}}
+                        {{$likeCount->likes_count}}
                     </small>
                 </span>
                 <span>
@@ -25,33 +25,33 @@
                     <small id="score">
                         <output id="ShowScore">0</output>/5
                     </small>
-                    <form action="{{route('score' , $productData->id)}}" method="POST">
+                    <form action="{{route('score' , $product->id)}}" method="POST">
                         @csrf
                         <input type="range" id="score" oninput="SaveValue.value = this.value;ShowScore.value=this.value" min="0" max="5">
                         <input type="hidden" name="score" id="SaveValue" value="">
-                        <input type="hidden" name="product_id" value="{{$productData->id}}">
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
                         <button type="submit">send</button>
                     </form>
                 </span>
                 <span>
-                    <form action="{{route('addBookmark' , $productData->id)}}" method="POST">
+                    <form action="{{route('addBookmark' , $product->id)}}" method="POST">
                         @csrf
                         <label for="bookmark">bookmark</label>
                         <input type="checkbox" id="bookmark">
-                        <input type="hidden" name="product_id" value="{{$productData->id}}">
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
                         <button type="submit" id="bookmark_btn" style="display:none;"></button>
                     </form>
             </span>
                 <span>
-                <a href="{{route('addToCart' , $productData->id)}}" class="btn btn-success">add to cart</a>
+                <a href="{{route('addToCart' , $product->id)}}" class="btn btn-success">add to cart</a>
             </span>
             </div>
         </div>
         <hr>
         <div class="comments border py-5 px-2">
-            <form action="{{route('comment' , $productData->id)}}" method="POST">
+            <form action="{{route('comment' , $product->id)}}" method="POST">
                 @csrf
-                <input type="hidden" name="product_id" value="{{$productData->id}}">
+                <input type="hidden" name="product_id" value="{{$product->id}}">
                 <div>
                     <label for="comment"> your comment : </label>
                 </div>

@@ -12,29 +12,25 @@ class Score extends Model
         'user_id',
     ];
 
-    public function scopeGetProductScore($query , $user_id, $product_id)
-    {
-        return $query->where('user_id', $user_id)->where('product_id', $product_id);
-    }
 
-    public function scopeEdit($query, $user_id , $product_id)
+    public function setScore($data ,$user_id , $product_id)
     {
-        $query->where('user_id', $user_id)->where('product_id', $product_id);
-    }
+        $isScore = $this->where('user_id', $user_id)->where('product_id', $product_id)->first();
 
-    public function score($data ,$user_id , $product_id)
-    {
-        $isScore = $this->getProductScore($user_id , $product_id)->first();
         if (!$isScore) {
+
             return Score::create([
                 'score' => $data->score,
                 'user_id'=>$user_id ,
                 'product_id'=>$product_id
             ]);
+
         } else {
-            return $this->edit($user_id , $product_id)->update([
+
+            return $this->where('user_id', $user_id)->where('product_id', $product_id)->update([
                 'score' => $data->score
             ]);
+
         }
     }
 }

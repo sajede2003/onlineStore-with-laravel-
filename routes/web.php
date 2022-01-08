@@ -41,7 +41,6 @@ Route::middleware(['auth', 'auth.admin'])->prefix('dashboard')->group(function (
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
-
 Route::prefix('product')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/add-to-cart/{product}', [CartController::class, 'addToCart'])->name('addToCart');

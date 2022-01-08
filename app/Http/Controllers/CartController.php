@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Dotenv\Validator;
-use Facade\FlareClient\Http\Response;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\RedirectResponse;
+
 
 class CartController extends Controller
 {
     /**
      * cart page
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
@@ -27,16 +24,16 @@ class CartController extends Controller
     /**
      * add product to cart function
      *
-     * @param [type] $product
-     * @return void
+     * @param Product $product
+     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     *
      */
 
     public function addToCart(Product $product)
     {
-
-
-        (session()->has('cart')) ? $cart = session()->get('cart') : $cart = [];
-
+        $cart = self::hasCartSession();
 
         if (isset($cart[$product->id])) {
             $cart[$product->id]['count'] += 1;
@@ -55,11 +52,14 @@ class CartController extends Controller
         return redirect('/cart');
     }
 
-
+    /**
+     * @param Product $product
+     * @return RedirectResponse
+     */
 
     public static function removeFromCart(Product $product)
     {
-        (session()->has('cart')) ? $cart = session()->get('cart') : $cart = [];
+        $cart = self::hasCartSession();
 
         $cart[$product->id]['count'] -= 1;
         $cart[$product->id]['sum'] = $cart[$product->id]['count'] * $cart[$product->id]['price'];
@@ -72,4 +72,8 @@ class CartController extends Controller
 
     }
 
+    public static function hasCartSession()
+    {
+        return (session()->has('cart')) ? session()->get('cart') : [];
+    }
 }

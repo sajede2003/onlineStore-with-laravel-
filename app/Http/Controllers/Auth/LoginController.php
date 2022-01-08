@@ -27,7 +27,7 @@ class LoginController
 
         return redirect('/login')->withErrors([
             'password' => 'email or password is incorrect. please try again.'
-        ]);
+        ])->withInput();
 
     }
 }

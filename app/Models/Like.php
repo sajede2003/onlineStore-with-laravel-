@@ -12,21 +12,12 @@ class Like extends Model
         'user_id',
         'product_id',
     ];
+
     public function getUserLiked($userId, $productId)
     {
-
-        return Like::select(DB::raw('COUNT(user_id) as count'))
-            ->where('user_id', $userId)
+        return Like::where('user_id', $userId)
             ->where('product_id', $productId)
-            ->get();
-
-    }
-
-    public function likeCount($product_id)
-    {
-        return Like::select(DB::raw('COUNT(user_id) as count'))
-            ->where('product_id', $product_id)
-            ->get();
+            ->first();
     }
 
     public function disLike($userId, $productId)
@@ -41,14 +32,19 @@ class Like extends Model
         $isLike = $this->getUserLiked($user_id, $product_id);
 
         // check for is user like the product
-        if ($isLike[0]->count == 0) {
-            return Like::create([
-                'user_id'=>$user_id ,
-                'product_id'=>$product_id
+        if (! $isLike) {
+            return $this->create([
+                'user_id' => $user_id,
+                'product_id' => $product_id
             ]);
         } else {
             return $this->disLike($user_id, $product_id);
         }
 
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

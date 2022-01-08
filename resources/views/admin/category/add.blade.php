@@ -4,7 +4,7 @@
         @csrf
         <h1 class="h3 mb-3 fw-normal">add category Page</h1>
         <div class="form-floating mb-3 col-5">
-            <input type="text" name="title"  class="form-control mb-2" id="title" placeholder="name@example.com">
+            <input type="text" name="title" value="{{old('title')}}" class="form-control mb-2" id="title" placeholder="name@example.com">
             <label for="title">title</label>
             @error('title')
             <span class="invalidFeedback text-danger">

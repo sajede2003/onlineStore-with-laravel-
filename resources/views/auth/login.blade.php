@@ -4,7 +4,7 @@
     <form action="/login" method="post">
         @csrf
         <div class="form-floating mb-3">
-            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <input type="email" name="email" value="{{old('email')}}" class="form-control" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>
             @error('email')
             <span class="invalidFeedback text-danger">
